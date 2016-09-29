@@ -26,3 +26,7 @@ post '/new' do
 
 	erb "you typed: #{content}"
 end
+
+get '/post' do
+  erb :post
+end

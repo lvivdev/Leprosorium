@@ -6,7 +6,6 @@
 	<br />
 	<br />
 </p>
-
 <p>
 	<form action="/details/<%= @row['id'] %>" method="POST" >
 		<textarea name="content" class="form-control" rows="8" placeholder="Add comment here" ></textarea>
@@ -14,7 +13,6 @@
 		<button type="submit" class="btn btn-primary">Add comment</button>
 	</form>
 </p>
-
 <h4>Comments:</h4>
 <hr />
 
@@ -28,11 +26,4 @@
 	</span>
 	<hr />
 <% end %>
-
-<% @author_name.each do |author| %>
-	<p>
-		<%= author_name['author'] %>		
-	</p>
-<% end %>
-
 

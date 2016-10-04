@@ -61,6 +61,13 @@ post '/new' do
 
 	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
 
+	author = params[:author]
+
+	if author.length <= 0
+		@error = 'Type your name'
+		return erb :new
+	end
+
 	redirect to '/'
 end
 

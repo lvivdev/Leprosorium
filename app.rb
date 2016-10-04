@@ -31,8 +31,7 @@ configure do
 	@db.execute 'CREATE TABLE IF NOT EXISTS Authors
 	(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		created_date DATE,
-		content TEXT,
+		author TEXT,
 		post_id integer
 	)'
 
@@ -55,18 +54,11 @@ post '/new' do
 	content = params[:content]
 
 	if content.length <= 0
-		@error = 'Type text'
+		@error = 'Type in forms'
 		return erb :new
 	end
 
 	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
-
-	author = params[:author]
-
-	if author.length <= 0
-		@error = 'Type your name'
-		return erb :new
-	end
 
 	redirect to '/'
 end
@@ -79,6 +71,7 @@ end
 
 get '/details/:post_id' do
 	post_id = params[:post_id]
+	author = params[:author]
 
 	results = @db.execute 'select * from Posts where id=?', [post_id]
 	@row = results[0]
@@ -86,6 +79,8 @@ get '/details/:post_id' do
 	#вывод комментариев в нашем посте
 	@comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
 
+	#вывод имени автора в нашем посте
+	@author_name = @db.execute 'select * from Authors ', [post_id]
 
 	erb :details
 
